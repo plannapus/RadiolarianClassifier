@@ -1,0 +1,49 @@
+# Instructions
+------------
+
+* Create a directory tree structure as follows:
+
+environment
+|_ code
+	|_ evaluate.py
+	|_ train.py
+|_ datasets
+	|_dataset102	#The dataset to train on
+		|_species1	#Each folder should contain a single species, with the folder name being the species name
+			|_ ...  #Specimen pictures
+		|_species2
+		...
+|_ labels 			#It will store the species names
+|_ models 			#It will store the output model of train.py, used to classify using evaluate.py
+|_ test_sets		#It will store the testing dataset
+|_ tmp				#It will store the original untrained model as well as the "bottlenecks" (i. e. resized, compressed pictures)
+|_ run.py
+
+* To reproduce the study: modify the dataset name (102, 202 or 302) in file run.py and simply run the script:
+
+    cd environment
+    python train.py
+
+* To train the CNN on a new dataset with new parameters, run the following in the terminal (with different parameters if needed):
+
+	python -m code.train --validation_percentage=10 \
+	--test_seed=1 \
+	--bottleneck_dir=tmp/bottlenecks \
+	--test_set=test_sets/example/ \
+	--model_dir=tmp/models/ \
+	--summaries_dir=tmp/training_summaries/ \
+	--output_graph=models/example.pb \
+	--output_labels=labels/example.txt \
+	--architecture="mobilenet_1.0_224" \
+	--image_dir=datasets/example_dataset \
+	--print_misclassified_test_images \
+	--how_many_training_steps=4000 \
+	--learning_rate=0.01
+
+* To classify a series of new pictures with the trained model, run a python script containing the following (with folder and file names changed accordingly):
+
+    import code.evaluate
+    model_file = "example.pb"
+    dataset = "new_dataset_directory"
+    label_file = "labels.txt"
+    evaluate.evaluateDirectory(model_file, dataset, label_file, top_n=5, save_file="results.txt")
