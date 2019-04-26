@@ -59,4 +59,4 @@ for k in xrange(len(img_name)):
     for i in xrange(15):
         for j in xrange(32):
             b = a[i][0,0:,0:,j]
-            np.savetxt("/Users/johan.renaudie/Documents/Manuscripts/Programming/!Ryan MS/ryan_project/environment/visualization2/%s_conv%i_layer%i.csv" % (os.path.basename(img_name[k]),i,j), b, delimiter='\t')
+            np.savetxt("visualization2/%s_conv%i_layer%i.csv" % (os.path.basename(img_name[k]),i,j), b, delimiter='\t')
