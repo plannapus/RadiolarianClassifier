@@ -1,5 +1,5 @@
 import os
-os.chdir("environment")
+os.chdir("/Users/johan.renaudie/Documents/Manuscripts/Programming/!Ryan MS/ryan_project/environment")
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -13,7 +13,8 @@ def load_graph(model_file):
     tf.import_graph_def(graph_def)
   return graph
 
-def read_tensor_from_image_file(file_name, input_height=299, input_width=299,input_mean=0, input_std=255):
+def read_tensor_from_image_file(file_name, input_height=299, input_width=299,
+				input_mean=0, input_std=255):
   input_name = "file_reader"
   file_reader = tf.read_file(file_name, input_name)
   if file_name.endswith(".png"):
@@ -46,8 +47,7 @@ input_height = 224
 input_width = 224
 input_mean = 128
 input_std = 128
-conv_layers = [k for k in graph.get_operations() if k.type=="Conv2D"]
-#conv_layers = [k for k in graph.get_operations() if k.type=="Relu6"]
+conv_layers = [k for k in graph.get_operations() if k.type=="Relu6"]
 
 for k in xrange(len(img_name)):
     a=[]
@@ -58,7 +58,5 @@ for k in xrange(len(img_name)):
 
     for i in xrange(15):
         for j in xrange(32):
-            plt.imshow(a[i][0,0:,0:,j])
-            plt.gray()
-            #plt.show()
-            plt.savefig("visualization/%s_conv%i_layer%i.png"%(os.path.basename(img_name[k]),i,j))
+            b = a[i][0,0:,0:,j]
+            np.savetxt("/Users/johan.renaudie/Documents/Manuscripts/Programming/!Ryan MS/ryan_project/environment/visualization2/%s_conv%i_layer%i.csv" % (os.path.basename(img_name[k]),i,j), b, delimiter='\t')
