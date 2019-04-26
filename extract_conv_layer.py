@@ -1,5 +1,5 @@
 import os
-os.chdir("/Users/johan.renaudie/Documents/Manuscripts/Programming/!Ryan MS/ryan_project/environment")
+os.chdir("environment")
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
