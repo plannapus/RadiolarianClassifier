@@ -33,7 +33,8 @@ def read_tensor_from_image_file(file_name, input_height=299, input_width=299,
   result = sess.run(normalized)
   return result
 
-model_file = "models/102.pb"
+model = 102
+model_file = "models/%i.pb" % (model,)
 img_name = ["datasets/datasets102-202-302/dataset102/Antarctissa denticulata/Antarctissa denticulata 689B-3-3,116 Axioskop 40X jr-3a.jpg",
             "datasets/datasets102-202-302/dataset102/Antarctissa denticulata/Antarctissa denticulata 689B-3-3,116 Axioskop 40X jr-3b.jpg",
             "datasets/datasets102-202-302/dataset102/Antarctissa cylindrica/Antarctissa cylindrica 689B-3-3,116 Axioskop 40X jr-3a.jpg",
@@ -59,4 +60,4 @@ for k in xrange(len(img_name)):
     for i in xrange(15):
         for j in xrange(32):
             b = a[i][0,0:,0:,j]
-            np.savetxt("visualization2/%s_conv%i_layer%i.csv" % (os.path.basename(img_name[k]),i,j), b, delimiter='\t')
+            np.savetxt("visualization/%s_conv%i_layer%i.csv" % (os.path.basename(img_name[k]),i,j), b, delimiter='\t')
